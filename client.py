@@ -3,6 +3,7 @@ import tkinter as tk
 import nfsServer_pb2
 import nfsServer_pb2_grpc
 import json
+import os
 
 channel = grpc.insecure_channel('localhost:50051')
 stub = nfsServer_pb2_grpc.NFSServerStub(channel)
@@ -116,6 +117,10 @@ def useRemoteFunction(allCommand):
         result = stub.DeleteFile(path)
         if(result.ex != ""):
             print (result.ex)
+    if command == "read":
+        path = nfsServer_pb2.Path(path = actualPath + "\\" + seperatedArguments[1])
+        result = stub.ReadFile(path)
+        print(result.content.decode("utf-8"))
     
 path = nfsServer_pb2.Path(path = "")
 result = stub.ListDirectory(path)
@@ -123,13 +128,15 @@ rootPath = result.path
 actualPath = result.path
 actualFiles = json.loads(result.files)
 actualFolders = json.loads(result.folders)
-printAllFolder(convertConcatListOfFilesAndFolders(result.folders, result.files))
 
-avaliableCommands = ["ls", "cd", "mkdir", "rmdir", "cpdir", "mvdir", "rendir", "ren", "mv", "cp", "rm"]
+avaliableCommands = ["ls", "cd", "mkdir", "rmdir", "cpdir", "mvdir", "rendir", "ren", "mv", "cp", "rm", "read"]
 
 while(True):
     print("\nActual remote path: ", actualPath)
-    print("You can use: ls, cd, mkdir, rmdir...")
+    print("You can use: ")
+    print("Naviagation: ls, cd")
+    print("Folders: mkdir, rmdir, cpdir, mvdir, rendir")
+    print("Files: ren, mv, cp, rm, read")
     allCommand = input()
     print()
     command = takeOnlyCommand(allCommand)

@@ -64,6 +64,11 @@ class NFSServerStub(object):
                 request_serializer=nfsServer__pb2.Path.SerializeToString,
                 response_deserializer=nfsServer__pb2.Result.FromString,
                 )
+        self.ReadFile = channel.unary_unary(
+                '/NFSServer/ReadFile',
+                request_serializer=nfsServer__pb2.Path.SerializeToString,
+                response_deserializer=nfsServer__pb2.File.FromString,
+                )
 
 
 class NFSServerServicer(object):
@@ -129,6 +134,12 @@ class NFSServerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ReadFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_NFSServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -181,6 +192,11 @@ def add_NFSServerServicer_to_server(servicer, server):
                     servicer.DeleteFile,
                     request_deserializer=nfsServer__pb2.Path.FromString,
                     response_serializer=nfsServer__pb2.Result.SerializeToString,
+            ),
+            'ReadFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReadFile,
+                    request_deserializer=nfsServer__pb2.Path.FromString,
+                    response_serializer=nfsServer__pb2.File.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -359,5 +375,22 @@ class NFSServer(object):
         return grpc.experimental.unary_unary(request, target, '/NFSServer/DeleteFile',
             nfsServer__pb2.Path.SerializeToString,
             nfsServer__pb2.Result.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReadFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/NFSServer/ReadFile',
+            nfsServer__pb2.Path.SerializeToString,
+            nfsServer__pb2.File.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0fnfsServer.proto\"\x14\n\x04Path\x12\x0c\n\x04path\x18\x01 \x01(\t\"<\n\x15SourceDestinationPath\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65stination\x18\x02 \x01(\t\"\x14\n\x06Result\x12\n\n\x02\x65x\x18\x01 \x01(\t\">\n\x0e\x46olderContents\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07\x66olders\x18\x02 \x01(\t\x12\r\n\x05\x66iles\x18\x03 \x01(\t2\xcd\x03\n\tNFSServer\x12)\n\rListDirectory\x12\x05.Path\x1a\x0f.FolderContents\"\x00\x12#\n\x0f\x44\x65leteDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12#\n\x0f\x43reateDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12\x32\n\rMoveDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x32\n\rCopyDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x34\n\x0fRenameDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12/\n\nRenameFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12-\n\x08MoveFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12-\n\x08\x43opyFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x1e\n\nDeleteFile\x12\x05.Path\x1a\x07.Result\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0fnfsServer.proto\"\x14\n\x04Path\x12\x0c\n\x04path\x18\x01 \x01(\t\"<\n\x15SourceDestinationPath\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65stination\x18\x02 \x01(\t\"\x14\n\x06Result\x12\n\n\x02\x65x\x18\x01 \x01(\t\">\n\x0e\x46olderContents\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07\x66olders\x18\x02 \x01(\t\x12\r\n\x05\x66iles\x18\x03 \x01(\t\"%\n\x04\x46ile\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x02 \x01(\x0c\x32\xe9\x03\n\tNFSServer\x12)\n\rListDirectory\x12\x05.Path\x1a\x0f.FolderContents\"\x00\x12#\n\x0f\x44\x65leteDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12#\n\x0f\x43reateDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12\x32\n\rMoveDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x32\n\rCopyDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x34\n\x0fRenameDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12/\n\nRenameFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12-\n\x08MoveFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12-\n\x08\x43opyFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x1e\n\nDeleteFile\x12\x05.Path\x1a\x07.Result\"\x00\x12\x1a\n\x08ReadFile\x12\x05.Path\x1a\x05.File\"\x00\x62\x06proto3'
 )
 
 
@@ -173,10 +173,50 @@ _FOLDERCONTENTS = _descriptor.Descriptor(
   serialized_end=187,
 )
 
+
+_FILE = _descriptor.Descriptor(
+  name='File',
+  full_name='File',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='path', full_name='File.path', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='content', full_name='File.content', index=1,
+      number=2, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"",
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=189,
+  serialized_end=226,
+)
+
 DESCRIPTOR.message_types_by_name['Path'] = _PATH
 DESCRIPTOR.message_types_by_name['SourceDestinationPath'] = _SOURCEDESTINATIONPATH
 DESCRIPTOR.message_types_by_name['Result'] = _RESULT
 DESCRIPTOR.message_types_by_name['FolderContents'] = _FOLDERCONTENTS
+DESCRIPTOR.message_types_by_name['File'] = _FILE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Path = _reflection.GeneratedProtocolMessageType('Path', (_message.Message,), {
@@ -207,6 +247,13 @@ FolderContents = _reflection.GeneratedProtocolMessageType('FolderContents', (_me
   })
 _sym_db.RegisterMessage(FolderContents)
 
+File = _reflection.GeneratedProtocolMessageType('File', (_message.Message,), {
+  'DESCRIPTOR' : _FILE,
+  '__module__' : 'nfsServer_pb2'
+  # @@protoc_insertion_point(class_scope:File)
+  })
+_sym_db.RegisterMessage(File)
+
 
 
 _NFSSERVER = _descriptor.ServiceDescriptor(
@@ -216,8 +263,8 @@ _NFSSERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=190,
-  serialized_end=651,
+  serialized_start=229,
+  serialized_end=718,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListDirectory',
@@ -316,6 +363,16 @@ _NFSSERVER = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_PATH,
     output_type=_RESULT,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ReadFile',
+    full_name='NFSServer.ReadFile',
+    index=10,
+    containing_service=None,
+    input_type=_PATH,
+    output_type=_FILE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

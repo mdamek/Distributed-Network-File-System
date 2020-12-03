@@ -25,7 +25,7 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
         path = request.path
         if not path:
             path = str(Path.home())
-        print("Used path: ", path)
+        print("List directory: ", path)
         folders = []
         files = []
         for (dirpath, dirnames, filenames) in walk(path):
@@ -109,6 +109,13 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
             os.rename(source, destination)
             print("Rename file from: ", source, " to: ", destination)
         return self.HandleCommandAndException(fun)
+
+    def ReadFile(self, request, context):
+        path = request.path
+        with open(path, "rb") as f:
+            data = f.read()
+        print("Read file: ", path)
+        return nfsServer_pb2.File(path = path, content = data)
 
 
 # create a gRPC server

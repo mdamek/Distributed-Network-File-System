@@ -19,6 +19,11 @@ message FolderContents {
     string files = 3;
 }
 
+message File {
+    string path = 1;
+    bytes content = 2;
+}
+
 service  NFSServer {
     rpc ListDirectory(Path) returns (FolderContents) {}
     rpc DeleteDirectory(Path) returns (Result) {}
@@ -31,4 +36,5 @@ service  NFSServer {
     rpc MoveFile(SourceDestinationPath) returns (Result) {}
     rpc CopyFile(SourceDestinationPath) returns (Result) {}
     rpc DeleteFile(Path) returns (Result) {}
+    rpc ReadFile(Path) returns (File) {}
 }
