@@ -1,9 +1,9 @@
 import grpc
-import tkinter as tk
 import nfsServer_pb2
 import nfsServer_pb2_grpc
 import json
 import os
+import sys
 
 channel = grpc.insecure_channel('localhost:50051')
 stub = nfsServer_pb2_grpc.NFSServerStub(channel)
@@ -121,6 +121,27 @@ def useRemoteFunction(allCommand):
         path = nfsServer_pb2.Path(path = actualPath + "\\" + seperatedArguments[1])
         result = stub.ReadFile(path)
         print(result.content.decode("utf-8"))
+    if command == "write":
+        print("Write content:")
+        content = input()
+        print("Do you want to overrride file if exits or append? ")
+        print("append: a")
+        print("override: o")
+        override = input()
+        if override != "a" and override != "o":
+            return
+        overrideFlag = False
+        if override == "a":
+            overrideFlag = False
+        if override == "o":
+            overrideFlag = True
+        file = nfsServer_pb2.FileEdit(path = actualPath + "\\" + seperatedArguments[1], content = str.encode(content), override = overrideFlag)
+        print(file)
+        result = stub.EditFile(file)
+        if(result.ex != ""):
+            print (result.ex)
+    if command == "exit":
+        sys.exit("User quit")
     
 path = nfsServer_pb2.Path(path = "")
 result = stub.ListDirectory(path)
@@ -129,19 +150,18 @@ actualPath = result.path
 actualFiles = json.loads(result.files)
 actualFolders = json.loads(result.folders)
 
-avaliableCommands = ["ls", "cd", "mkdir", "rmdir", "cpdir", "mvdir", "rendir", "ren", "mv", "cp", "rm", "read"]
+avaliableCommands = ["ls", "cd", "mkdir", "rmdir", "cpdir", "mvdir", "rendir", "ren", "mv", "cp", "rm", "read", "write", "exit"]
 
 while(True):
-    print("\nActual remote path: ", actualPath)
-    print("You can use: ")
-    print("Naviagation: ls, cd")
+    print("\nActual path: ", actualPath)
+    print("Naviagation: ls, cd, exit")
     print("Folders: mkdir, rmdir, cpdir, mvdir, rendir")
-    print("Files: ren, mv, cp, rm, read")
+    print("Files: ren, mv, cp, rm, read, write")
     allCommand = input()
     print()
     command = takeOnlyCommand(allCommand)
     if command not in avaliableCommands:
-        print("Invalid command. Try again")
+        print("Invalid command. Try again!")
         continue
     useRemoteFunction(allCommand)
     

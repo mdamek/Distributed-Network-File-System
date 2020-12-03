@@ -24,6 +24,12 @@ message File {
     bytes content = 2;
 }
 
+message FileEdit {
+    string path = 1;
+    bytes content = 2;
+    bool override = 3;
+}
+
 service  NFSServer {
     rpc ListDirectory(Path) returns (FolderContents) {}
     rpc DeleteDirectory(Path) returns (Result) {}
@@ -37,4 +43,5 @@ service  NFSServer {
     rpc CopyFile(SourceDestinationPath) returns (Result) {}
     rpc DeleteFile(Path) returns (Result) {}
     rpc ReadFile(Path) returns (File) {}
+    rpc EditFile(FileEdit) returns (Result) {}
 }

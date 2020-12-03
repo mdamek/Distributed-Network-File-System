@@ -116,6 +116,21 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
             data = f.read()
         print("Read file: ", path)
         return nfsServer_pb2.File(path = path, content = data)
+    
+    def EditFile(self, request, context):
+        print("Im here")
+        def fun():
+            path = request.path
+            content = request.content
+            override = request.override
+            print("Edit file: ", path, "override? ", override)
+            if override: 
+                f = open(path, "w")
+            else:
+                f = open(path, "a")
+            f.write(content.decode("utf-8"))
+            f.close()
+        return self.HandleCommandAndException(fun)
 
 
 # create a gRPC server
