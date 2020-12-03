@@ -7,12 +7,22 @@ import nfsServer_pb2_grpc
 from os import walk
 from pathlib import Path
 import json
+import shutil
+import os
 
 
 class NFSServicer(nfsServer_pb2_grpc.NFSServer):
 
-    def ListDir(self, request, context):
-        print("WEAREAD")
+    def HandleCommandAndException(self, functionToRun):
+        ex = ""
+        try:
+            functionToRun()
+        except Exception as e:
+            ex = str(e)
+            print("Exception: ", ex)
+        return nfsServer_pb2.Result(ex = ex)
+
+    def ListDirectory(self, request, context):
         path = request.path
         if not path:
             path = str(Path.home())
@@ -23,8 +33,45 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
             folders.extend(dirnames)
             files.extend(filenames)
             break
-        return nfsServer_pb2.FolderContents(path = path, folders = json.dumps(folders), files = json.dumps(files))
+        return nfsServer_pb2.FolderContents(path = os.path.abspath(path), folders = json.dumps(folders), files = json.dumps(files))
 
+    def DeleteDirectory(self, request, context):
+        def fun():
+            path = request.path
+            shutil.rmtree(path, ignore_errors=True)
+            print("Delete directory: ", path)
+        return self.HandleCommandAndException(fun)
+
+    def CreateDirectory(self, request, context):
+        def fun():
+            path = request.path
+            os.mkdir(path)
+            print("Create directory: ", path)
+        return self.HandleCommandAndException(fun)
+
+    def MoveDirectory(self, request, context):
+        def fun():
+            source = request.source
+            destination = request.destination
+            shutil.move(source, destination)
+            print("Move directory from: ", source, " to: ", destination)
+        return self.HandleCommandAndException(fun)
+        
+    def CopyDirectory(self, request, context):
+        def fun():
+            source = request.source
+            destination = request.destination
+            shutil.copytree(source, destination)
+            print("Copy directory from: ", source, " to: ", destination)
+        return self.HandleCommandAndException(fun)
+
+    def RenameDirectory(self, request, context):
+        def fun():
+            source = request.source
+            destination = request.destination
+            os.rename(source, destination)
+            print("Rename directory from: ", source, " to: ", destination)
+        return self.HandleCommandAndException(fun)
 
 # create a gRPC server
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

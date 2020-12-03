@@ -4,6 +4,15 @@ message Path {
     string path = 1;
 }
 
+message SourceDestinationPath {
+    string source = 1;
+    string destination = 2;
+}
+
+message Result {
+    string ex = 1;
+}
+
 message FolderContents {
     string path = 1;
     string folders = 2;
@@ -11,5 +20,10 @@ message FolderContents {
 }
 
 service  NFSServer {
-    rpc ListDir(Path) returns (FolderContents) {}
+    rpc ListDirectory(Path) returns (FolderContents) {}
+    rpc DeleteDirectory(Path) returns (Result) {}
+    rpc CreateDirectory(Path) returns (Result) {}
+    rpc MoveDirectory(SourceDestinationPath) returns (Result) {}
+    rpc CopyDirectory(SourceDestinationPath) returns (Result) {}
+    rpc RenameDirectory(SourceDestinationPath) returns (Result) {}
 }
