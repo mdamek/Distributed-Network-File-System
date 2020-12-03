@@ -93,6 +93,29 @@ def useRemoteFunction(allCommand):
         result = stub.RenameDirectory(paths)
         if(result.ex != ""):
             print (result.ex)
+    if command == "ren":
+        paths = nfsServer_pb2.SourceDestinationPath(source = seperatedArguments[1], destination = seperatedArguments[2])
+        result = stub.RenameFile(paths)
+        if(result.ex != ""):
+            print (result.ex)
+    if command == "mv":
+        paths = nfsServer_pb2.SourceDestinationPath(source = seperatedArguments[1], destination = seperatedArguments[2])
+        result = stub.MoveFile(paths)
+        if(result.ex != ""):
+            print (result.ex)
+    if command == "cp":
+        paths = nfsServer_pb2.SourceDestinationPath(source = seperatedArguments[1], destination = seperatedArguments[2])
+        result = stub.CopyFile(paths)
+        if(result.ex != ""):
+            print (result.ex)
+    if command == "rm":
+        if seperatedArguments[1] not in actualFiles:
+            print("File not exist")
+            return
+        path = nfsServer_pb2.Path(path = actualPath + "\\" + seperatedArguments[1])
+        result = stub.DeleteFile(path)
+        if(result.ex != ""):
+            print (result.ex)
     
 path = nfsServer_pb2.Path(path = "")
 result = stub.ListDirectory(path)
@@ -102,7 +125,7 @@ actualFiles = json.loads(result.files)
 actualFolders = json.loads(result.folders)
 printAllFolder(convertConcatListOfFilesAndFolders(result.folders, result.files))
 
-avaliableCommands = ["ls", "cd", "mkdir", "rmdir", "cpdir", "mvdir", "rendir"]
+avaliableCommands = ["ls", "cd", "mkdir", "rmdir", "cpdir", "mvdir", "rendir", "ren", "mv", "cp", "rm"]
 
 while(True):
     print("\nActual remote path: ", actualPath)

@@ -10,7 +10,6 @@ import json
 import shutil
 import os
 
-
 class NFSServicer(nfsServer_pb2_grpc.NFSServer):
 
     def HandleCommandAndException(self, functionToRun):
@@ -34,6 +33,8 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
             files.extend(filenames)
             break
         return nfsServer_pb2.FolderContents(path = os.path.abspath(path), folders = json.dumps(folders), files = json.dumps(files))
+
+    # directories operations
 
     def DeleteDirectory(self, request, context):
         def fun():
@@ -74,6 +75,41 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
             os.rename(source, destination)
             print("Rename directory from: ", source, " to: ", destination)
         return self.HandleCommandAndException(fun)
+
+    # files operations
+
+    def DeleteFile(self, request, context):
+        def fun():
+            path = request.path
+            os.remove(path)
+            print("Remove file: ", path)
+        return self.HandleCommandAndException(fun)
+
+    def CopyFile(self, request, context):
+        print(request)
+        def fun():
+            source = request.source
+            destination = request.destination
+            shutil.copy2(source, destination)
+            print("Copy file from: ", source, " to: ", destination)
+        return self.HandleCommandAndException(fun)
+        
+    def MoveFile(self, request, context):
+        def fun():
+            source = request.source
+            destination = request.destination
+            shutil.move(source, destination)
+            print("Copy file from: ", source, " to: ", destination)
+        return self.HandleCommandAndException(fun)
+
+    def RenameFile(self, request, context):
+        def fun():
+            source = request.source
+            destination = request.destination
+            os.rename(source, destination)
+            print("Rename file from: ", source, " to: ", destination)
+        return self.HandleCommandAndException(fun)
+
 
 # create a gRPC server
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

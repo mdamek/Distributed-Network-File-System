@@ -44,6 +44,26 @@ class NFSServerStub(object):
                 request_serializer=nfsServer__pb2.SourceDestinationPath.SerializeToString,
                 response_deserializer=nfsServer__pb2.Result.FromString,
                 )
+        self.RenameFile = channel.unary_unary(
+                '/NFSServer/RenameFile',
+                request_serializer=nfsServer__pb2.SourceDestinationPath.SerializeToString,
+                response_deserializer=nfsServer__pb2.Result.FromString,
+                )
+        self.MoveFile = channel.unary_unary(
+                '/NFSServer/MoveFile',
+                request_serializer=nfsServer__pb2.SourceDestinationPath.SerializeToString,
+                response_deserializer=nfsServer__pb2.Result.FromString,
+                )
+        self.CopyFile = channel.unary_unary(
+                '/NFSServer/CopyFile',
+                request_serializer=nfsServer__pb2.SourceDestinationPath.SerializeToString,
+                response_deserializer=nfsServer__pb2.Result.FromString,
+                )
+        self.DeleteFile = channel.unary_unary(
+                '/NFSServer/DeleteFile',
+                request_serializer=nfsServer__pb2.Path.SerializeToString,
+                response_deserializer=nfsServer__pb2.Result.FromString,
+                )
 
 
 class NFSServerServicer(object):
@@ -85,6 +105,30 @@ class NFSServerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RenameFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def MoveFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CopyFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteFile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_NFSServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -116,6 +160,26 @@ def add_NFSServerServicer_to_server(servicer, server):
             'RenameDirectory': grpc.unary_unary_rpc_method_handler(
                     servicer.RenameDirectory,
                     request_deserializer=nfsServer__pb2.SourceDestinationPath.FromString,
+                    response_serializer=nfsServer__pb2.Result.SerializeToString,
+            ),
+            'RenameFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.RenameFile,
+                    request_deserializer=nfsServer__pb2.SourceDestinationPath.FromString,
+                    response_serializer=nfsServer__pb2.Result.SerializeToString,
+            ),
+            'MoveFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.MoveFile,
+                    request_deserializer=nfsServer__pb2.SourceDestinationPath.FromString,
+                    response_serializer=nfsServer__pb2.Result.SerializeToString,
+            ),
+            'CopyFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.CopyFile,
+                    request_deserializer=nfsServer__pb2.SourceDestinationPath.FromString,
+                    response_serializer=nfsServer__pb2.Result.SerializeToString,
+            ),
+            'DeleteFile': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteFile,
+                    request_deserializer=nfsServer__pb2.Path.FromString,
                     response_serializer=nfsServer__pb2.Result.SerializeToString,
             ),
     }
@@ -226,6 +290,74 @@ class NFSServer(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/NFSServer/RenameDirectory',
             nfsServer__pb2.SourceDestinationPath.SerializeToString,
+            nfsServer__pb2.Result.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RenameFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/NFSServer/RenameFile',
+            nfsServer__pb2.SourceDestinationPath.SerializeToString,
+            nfsServer__pb2.Result.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def MoveFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/NFSServer/MoveFile',
+            nfsServer__pb2.SourceDestinationPath.SerializeToString,
+            nfsServer__pb2.Result.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CopyFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/NFSServer/CopyFile',
+            nfsServer__pb2.SourceDestinationPath.SerializeToString,
+            nfsServer__pb2.Result.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteFile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/NFSServer/DeleteFile',
+            nfsServer__pb2.Path.SerializeToString,
             nfsServer__pb2.Result.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

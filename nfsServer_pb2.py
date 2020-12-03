@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0fnfsServer.proto\"\x14\n\x04Path\x12\x0c\n\x04path\x18\x01 \x01(\t\"<\n\x15SourceDestinationPath\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65stination\x18\x02 \x01(\t\"\x14\n\x06Result\x12\n\n\x02\x65x\x18\x01 \x01(\t\">\n\x0e\x46olderContents\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07\x66olders\x18\x02 \x01(\t\x12\r\n\x05\x66iles\x18\x03 \x01(\t2\x9e\x02\n\tNFSServer\x12)\n\rListDirectory\x12\x05.Path\x1a\x0f.FolderContents\"\x00\x12#\n\x0f\x44\x65leteDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12#\n\x0f\x43reateDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12\x32\n\rMoveDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x32\n\rCopyDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x34\n\x0fRenameDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x0fnfsServer.proto\"\x14\n\x04Path\x12\x0c\n\x04path\x18\x01 \x01(\t\"<\n\x15SourceDestinationPath\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65stination\x18\x02 \x01(\t\"\x14\n\x06Result\x12\n\n\x02\x65x\x18\x01 \x01(\t\">\n\x0e\x46olderContents\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0f\n\x07\x66olders\x18\x02 \x01(\t\x12\r\n\x05\x66iles\x18\x03 \x01(\t2\xcd\x03\n\tNFSServer\x12)\n\rListDirectory\x12\x05.Path\x1a\x0f.FolderContents\"\x00\x12#\n\x0f\x44\x65leteDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12#\n\x0f\x43reateDirectory\x12\x05.Path\x1a\x07.Result\"\x00\x12\x32\n\rMoveDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x32\n\rCopyDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x34\n\x0fRenameDirectory\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12/\n\nRenameFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12-\n\x08MoveFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12-\n\x08\x43opyFile\x12\x16.SourceDestinationPath\x1a\x07.Result\"\x00\x12\x1e\n\nDeleteFile\x12\x05.Path\x1a\x07.Result\"\x00\x62\x06proto3'
 )
 
 
@@ -217,7 +217,7 @@ _NFSSERVER = _descriptor.ServiceDescriptor(
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
   serialized_start=190,
-  serialized_end=476,
+  serialized_end=651,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListDirectory',
@@ -275,6 +275,46 @@ _NFSSERVER = _descriptor.ServiceDescriptor(
     index=5,
     containing_service=None,
     input_type=_SOURCEDESTINATIONPATH,
+    output_type=_RESULT,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='RenameFile',
+    full_name='NFSServer.RenameFile',
+    index=6,
+    containing_service=None,
+    input_type=_SOURCEDESTINATIONPATH,
+    output_type=_RESULT,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='MoveFile',
+    full_name='NFSServer.MoveFile',
+    index=7,
+    containing_service=None,
+    input_type=_SOURCEDESTINATIONPATH,
+    output_type=_RESULT,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='CopyFile',
+    full_name='NFSServer.CopyFile',
+    index=8,
+    containing_service=None,
+    input_type=_SOURCEDESTINATIONPATH,
+    output_type=_RESULT,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='DeleteFile',
+    full_name='NFSServer.DeleteFile',
+    index=9,
+    containing_service=None,
+    input_type=_PATH,
     output_type=_RESULT,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

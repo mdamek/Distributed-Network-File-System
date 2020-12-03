@@ -26,4 +26,9 @@ service  NFSServer {
     rpc MoveDirectory(SourceDestinationPath) returns (Result) {}
     rpc CopyDirectory(SourceDestinationPath) returns (Result) {}
     rpc RenameDirectory(SourceDestinationPath) returns (Result) {}
+
+    rpc RenameFile(SourceDestinationPath) returns (Result) {}
+    rpc MoveFile(SourceDestinationPath) returns (Result) {}
+    rpc CopyFile(SourceDestinationPath) returns (Result) {}
+    rpc DeleteFile(Path) returns (Result) {}
 }
