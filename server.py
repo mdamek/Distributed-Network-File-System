@@ -50,6 +50,7 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
         return self.HandleCommandAndException(fun)
 
     def MoveDirectory(self, request, context):
+        print(request)
         def fun():
             source = request.source
             destination = request.destination
@@ -61,6 +62,7 @@ class NFSServicer(nfsServer_pb2_grpc.NFSServer):
         def fun():
             source = request.source
             destination = request.destination
+            shutil.rmtree(destination)
             shutil.copytree(source, destination)
             print("Copy directory from: ", source, " to: ", destination)
         return self.HandleCommandAndException(fun)

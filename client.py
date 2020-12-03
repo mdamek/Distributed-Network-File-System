@@ -63,15 +63,36 @@ def useRemoteFunction(allCommand):
             print("Wrong folder")
         
     if command == "mkdir":
-        pass
+        if seperatedArguments[1] in actualFolders:
+            print("Folder already exist")
+            return
+        path = nfsServer_pb2.Path(path = actualPath + "\\" + seperatedArguments[1])
+        result = stub.CreateDirectory(path)
+        if(result.ex != ""):
+            print (result.ex)
     if command == "rmdir":
-        pass
+        if seperatedArguments[1] not in actualFolders:
+            print("Folder not exist")
+            return
+        path = nfsServer_pb2.Path(path = actualPath + "\\" + seperatedArguments[1])
+        result = stub.DeleteDirectory(path)
+        if(result.ex != ""):
+            print (result.ex)
     if command == "cpdir":
-        pass
+        paths = nfsServer_pb2.SourceDestinationPath(source = seperatedArguments[1], destination = seperatedArguments[2])
+        result = stub.CopyDirectory(paths)
+        if(result.ex != ""):
+            print (result.ex)
     if command == "mvdir":
-        pass
+        paths = nfsServer_pb2.SourceDestinationPath(source = seperatedArguments[1], destination = seperatedArguments[2])
+        result = stub.MoveDirectory(paths)
+        if(result.ex != ""):
+            print (result.ex)
     if command == "rendir":
-        pass
+        paths = nfsServer_pb2.SourceDestinationPath(source = seperatedArguments[1], destination = seperatedArguments[2])
+        result = stub.RenameDirectory(paths)
+        if(result.ex != ""):
+            print (result.ex)
     
 path = nfsServer_pb2.Path(path = "")
 result = stub.ListDirectory(path)

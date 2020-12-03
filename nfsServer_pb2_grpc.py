@@ -31,17 +31,17 @@ class NFSServerStub(object):
                 )
         self.MoveDirectory = channel.unary_unary(
                 '/NFSServer/MoveDirectory',
-                request_serializer=nfsServer__pb2.Path.SerializeToString,
+                request_serializer=nfsServer__pb2.SourceDestinationPath.SerializeToString,
                 response_deserializer=nfsServer__pb2.Result.FromString,
                 )
         self.CopyDirectory = channel.unary_unary(
                 '/NFSServer/CopyDirectory',
-                request_serializer=nfsServer__pb2.Path.SerializeToString,
+                request_serializer=nfsServer__pb2.SourceDestinationPath.SerializeToString,
                 response_deserializer=nfsServer__pb2.Result.FromString,
                 )
         self.RenameDirectory = channel.unary_unary(
                 '/NFSServer/RenameDirectory',
-                request_serializer=nfsServer__pb2.Path.SerializeToString,
+                request_serializer=nfsServer__pb2.SourceDestinationPath.SerializeToString,
                 response_deserializer=nfsServer__pb2.Result.FromString,
                 )
 
@@ -105,17 +105,17 @@ def add_NFSServerServicer_to_server(servicer, server):
             ),
             'MoveDirectory': grpc.unary_unary_rpc_method_handler(
                     servicer.MoveDirectory,
-                    request_deserializer=nfsServer__pb2.Path.FromString,
+                    request_deserializer=nfsServer__pb2.SourceDestinationPath.FromString,
                     response_serializer=nfsServer__pb2.Result.SerializeToString,
             ),
             'CopyDirectory': grpc.unary_unary_rpc_method_handler(
                     servicer.CopyDirectory,
-                    request_deserializer=nfsServer__pb2.Path.FromString,
+                    request_deserializer=nfsServer__pb2.SourceDestinationPath.FromString,
                     response_serializer=nfsServer__pb2.Result.SerializeToString,
             ),
             'RenameDirectory': grpc.unary_unary_rpc_method_handler(
                     servicer.RenameDirectory,
-                    request_deserializer=nfsServer__pb2.Path.FromString,
+                    request_deserializer=nfsServer__pb2.SourceDestinationPath.FromString,
                     response_serializer=nfsServer__pb2.Result.SerializeToString,
             ),
     }
@@ -191,7 +191,7 @@ class NFSServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/NFSServer/MoveDirectory',
-            nfsServer__pb2.Path.SerializeToString,
+            nfsServer__pb2.SourceDestinationPath.SerializeToString,
             nfsServer__pb2.Result.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -208,7 +208,7 @@ class NFSServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/NFSServer/CopyDirectory',
-            nfsServer__pb2.Path.SerializeToString,
+            nfsServer__pb2.SourceDestinationPath.SerializeToString,
             nfsServer__pb2.Result.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -225,7 +225,7 @@ class NFSServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/NFSServer/RenameDirectory',
-            nfsServer__pb2.Path.SerializeToString,
+            nfsServer__pb2.SourceDestinationPath.SerializeToString,
             nfsServer__pb2.Result.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
